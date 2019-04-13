@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import beans.User;
 
-public final class registro_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class bienvenido_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -48,35 +48,30 @@ public final class registro_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<html>\n");
       out.write("    <head>\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Registro</title>\n");
+      out.write("        <title>Bienvenido</title>\n");
       out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("        ");
-      beans.User user = null;
-      synchronized (request) {
-        user = (beans.User) _jspx_page_context.getAttribute("user", PageContext.REQUEST_SCOPE);
-        if (user == null){
-          user = new beans.User();
-          _jspx_page_context.setAttribute("user", user, PageContext.REQUEST_SCOPE);
-        }
-      }
+      out.write("   <body>\n");
+      out.write("                ");
+  
+            HttpSession sessionUser=request.getSession(false);  
+            String us=(String)sessionUser.getAttribute("user");
+            
+            User user = new User();
+            user.setNombre(us);
+            user.GetUser();
+            
+            out.print("Bienvenido ");
+            out.print(user.getNombre());
+            out.print(" Tu fecha de nacimiento es:");
+            out.print(user.getFecha_nacimiento());
+            out.print("!!!");
+        
       out.write("\n");
-      out.write("        <h1>Registro de usuario</h1>\n");
-      out.write("        <form action=\"RegisterController\" method=\"POST\">\n");
-      out.write("            <label>Nombre:</label> <input type=\"text\" name=\"nombre\" value=\"");
-      out.write(org.apache.jasper.runtime.JspRuntimeLibrary.toString((((beans.User)_jspx_page_context.findAttribute("user")).getNombre())));
-      out.write("\" /><br>\n");
-      out.write("            <label>Contraseña:</label><input type=\"password\" name=\"pass\" value=\"");
-      out.write(org.apache.jasper.runtime.JspRuntimeLibrary.toString((((beans.User)_jspx_page_context.findAttribute("user")).getPassword())));
-      out.write("\" /><br>\n");
-      out.write("            <label>Correo:</label><input type=\"text\" name=\"correo\" value=\"");
-      out.write(org.apache.jasper.runtime.JspRuntimeLibrary.toString((((beans.User)_jspx_page_context.findAttribute("user")).getCorreo())));
-      out.write("\" /><br>\n");
-      out.write("            <label>Fecha:</label><input type=\"text\" name=\"fechanacimiento\" value=\"");
-      out.write(org.apache.jasper.runtime.JspRuntimeLibrary.toString((((beans.User)_jspx_page_context.findAttribute("user")).getFecha_nacimiento())));
-      out.write("\"><br>\n");
-      out.write("            <input type=\"submit\" value=\"Registrar\" name=\"Registrar\" /><input type=\"reset\" value=\"Cancelar\" name=\"Cancelar\" />\n");
-      out.write("        </form>\n");
+      out.write("                \n");
+      out.write("        <br><br>\n");
+      out.write("        <a href=\"logout.jsp\">Log Out</a>\n");
+      out.write("        <br><br>   \n");
+      out.write("                    \n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {
